@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elysian Chain - Flutter Enhanced Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #050816 0%, #0b0f2b 50%, #101747 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ambient effects */
+        .ambient-glow-1 {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+            filter: blur(60px);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .ambient-glow-2 {
+            position: absolute;
+            bottom: 0;
+            right: 50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.25) 0%, transparent 70%);
+            filter: blur(60px);
+            animation: pulse 4s ease-in-out infinite 2s;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Phone container */
+        .phone-container {
+            width: 393px;
+            max-width: 100%;
+            background: linear-gradient(135deg, #17243f 0%, #111b33 50%, #0b1329 100%);
+            border-radius: 38px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Notch */
+        .notch {
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 128px;
+            height: 28px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            z-index: 100;
+        }
+
+        /* Status bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 32px 28px 0;
+            font-size: 11px;
+            color: rgba(156, 163, 175, 1);
+        }
+
+        .status-bar span:nth-child(2) {
+            letter-spacing: 0.3em;
+            color: rgba(107, 114, 128, 1);
+        }
+
+        /* Main content */
+        .content {
+            padding: 24px 28px 40px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+        }
+
+        .header-title {
+            flex: 1;
+        }
+
+        .header-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.32em;
+            color: rgba(191, 219, 254, 0.6);
+            margin-bottom: 4px;
+        }
+
+        .header-main {
+            font-size: 28px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .icon-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .icon-button:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Strategy Card - Enhanced */
+        .strategy-card {
+            position: relative;
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #5b21b6 100%);
+            border-radius: 24px;
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 25px 60px rgba(124, 58, 237, 0.45);
+            overflow: hidden;
+        }
+
+        /* Ambient glows */
+        .strategy-card::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: 0;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(240, 171, 252, 0.3) 0%, transparent 70%);
+            filter: blur(40px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .strategy-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.25) 0%, transparent 70%);
+            filter: blur(40px);
+            animation: float 6s ease-in-out infinite 3s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-10px) scale(1.05);
+            }
+        }
+
+        /* 3D Coin - ProfitPilot style */
+        .coin-3d {
+            position: absolute;
+            right: -20px;
+            top: 40px;
+            width: 80px;
+            height: 80px;
+            opacity: 0.2;
+            animation: floatCoin 6s ease-in-out infinite;
+        }
+
+        .coin-3d-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 50%, #f59e0b 100%);
+            box-shadow: 0 20px 50px rgba(251, 191, 36, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        @keyframes floatCoin {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(-5deg);
+            }
+
+            75% {
+                transform: translateY(-20px) rotate(3deg);
+            }
+        }
+
+        /* Verified Badge */
+        .verified-badge {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+            color: #86efac;
+            letter-spacing: 1.2px;
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+            z-index: 10;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(0.8);
+            }
+        }
+
+        /* Balance display */
+        .balance-header {
+            position: relative;
+            z-index: 5;
+            margin-bottom: 24px;
+        }
+
+        .balance-icon-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .golden-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 50%, #f59e0b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 35px rgba(251, 191, 36, 0.5);
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 12px 35px rgba(251, 191, 36, 0.5);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 45px rgba(251, 191, 36, 0.7);
+            }
+        }
+
+        .apy-info {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .apy-value {
+            color: #6ee7b7;
+            font-weight: bold;
+        }
+
+        .balance-amount {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffffff 0%, #fcd34d 50%, #f0abfc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            animation: shimmer 3s linear infinite;
+            background-size: 200% 100%;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .balance-subtitle {
+            font-size: 14px;
+            color: rgba(224, 231, 255, 0.9);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .live-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #6ee7b7;
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        /* Glassmorphism Card - FluxChain style */
+        .glass-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .glass-card-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .glass-card-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(224, 231, 255, 0.8);
+            margin-bottom: 4px;
+        }
+
+        .glass-card-value {
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .performance-value {
+            font-size: 18px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #6ee7b7 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Mini chart */
+        .mini-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 32px;
+            margin-top: 12px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, #10b981 0%, #6ee7b7 100%);
+            border-radius: 2px;
+            opacity: 0.6;
+            animation: growBar 1s ease-out forwards;
+        }
+
+        @keyframes growBar {
+            from {
+                transform: scaleY(0);
+            }
+
+            to {
+                transform: scaleY(1);
+            }
+        }
+
+        /* Action buttons */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 20px 45px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 55px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Transaction Feed */
+        .transaction-feed {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 20px;
+        }
+
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .feed-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .feed-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.32em;
+            color: rgba(147, 197, 253, 0.8);
+            margin-bottom: 4px;
+        }
+
+        .view-all-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            border-radius: 20px;
+            color: #67e8f9;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-all-btn:hover {
+            background: rgba(34, 211, 238, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Transaction items */
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            transition: all 0.3s;
+        }
+
+        .transaction-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        .transaction-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid;
+        }
+
+        .transaction-icon.donation {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #6ee7b7;
+        }
+
+        .transaction-icon.withdrawal {
+            background: rgba(251, 146, 60, 0.2);
+            border-color: rgba(251, 146, 60, 0.3);
+            color: #fdba74;
+        }
+
+        .transaction-details {
+            flex: 1;
+        }
+
+        .transaction-type {
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 2px;
+        }
+
+        .transaction-address {
+            font-size: 12px;
+            color: rgba(156, 163, 175, 1);
+            font-family: monospace;
+        }
+
+        .transaction-time {
+            font-size: 11px;
+            color: rgba(107, 114, 128, 1);
+        }
+
+        .transaction-amount {
+            text-align: right;
+        }
+
+        .amount-value {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .amount-value.positive {
+            color: #6ee7b7;
+        }
+
+        .amount-value.negative {
+            color: #fdba74;
+        }
+
+        .amount-usd {
+            font-size: 11px;
+            color: rgba(156, 163, 175, 1);
+        }
+
+        /* Info banner */
+        .info-banner {
+            background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: 0 15px 40px rgba(124, 58, 237, 0.3);
+        }
+
+        .info-banner h3 {
+            font-size: 24px;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .info-banner p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+
+        .flutter-logo {
+            font-size: 48px;
+            margin-bottom: 12px;
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Ambient glows -->
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- Phone container -->
+    <div class="phone-container">
+        <!-- Notch -->
+        <div class="notch"></div>
+
+        <!-- Status bar -->
+        <div class="status-bar">
+            <span>Elysian Chain</span>
+            <span>EVM</span>
+            <span>UTC • Live</span>
+        </div>
+
+        <!-- Main content -->
+        <div class="content">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-title">
+                    <div class="header-label">Elysian Transparency</div>
+                    <div class="header-main">Contract Health</div>
+                </div>
+                <div class="header-actions">
+                    <div class="icon-button">👛</div>
+                    <div class="icon-button">⚙️</div>
+                </div>
+            </div>
+
+            <!-- Enhanced Strategy Card -->
+            <div class="strategy-card">
+                <!-- 3D Coin -->
+                <div class="coin-3d">
+                    <div class="coin-3d-inner">$</div>
+                </div>
+
+                <!-- Verified Badge -->
+                <div class="verified-badge">
+                    <div class="pulse-dot"></div>
+                    VERIFIED
+                </div>
+
+                <!-- Balance Header -->
+                <div class="balance-header">
+                    <div class="balance-icon-wrapper">
+                        <div class="golden-icon">💎</div>
+                        <div class="apy-info">
+                            <div class="header-label">Contract TVL</div>
+                            <div>
+                                <span class="apy-value">APY 5.68%</span>
+                                <span style="color: rgba(255, 255, 255, 0.6);"> + </span>
+                                <span style="color: #f0abfc; font-weight: bold;">39% SUMRA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="balance-amount">25.567 ETH</div>
+                    <div class="balance-subtitle">
+                        <div class="live-indicator"></div>
+                        Total assets • $63,918 USD
+                    </div>
+                </div>
+
+                <!-- Glassmorphism Card -->
+                <div class="glass-card">
+                    <div class="glass-card-content">
+                        <div>
+                            <div class="glass-card-label">Strategy</div>
+                            <div class="glass-card-value">
+                                <span style="display: inline-flex; align-items: center; gap: 8px;">
+                                    <div class="live-indicator"></div>
+                                    Optimized lending yield
+                                </span>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="glass-card-label">24h Change</div>
+                            <div class="performance-value">+12.5%</div>
+                        </div>
+                    </div>
+
+                    <!-- Mini chart -->
+                    <div class="mini-chart">
+                        <div class="chart-bar" style="height: 40%; animation-delay: 0s;"></div>
+                        <div class="chart-bar" style="height: 55%; animation-delay: 0.1s;"></div>
+                        <div class="chart-bar" style="height: 45%; animation-delay: 0.2s;"></div>
+                        <div class="chart-bar" style="height: 70%; animation-delay: 0.3s;"></div>
+                        <div class="chart-bar" style="height: 65%; animation-delay: 0.4s;"></div>
+                        <div class="chart-bar" style="height: 85%; animation-delay: 0.5s;"></div>
+                        <div class="chart-bar" style="height: 75%; animation-delay: 0.6s;"></div>
+                        <div class="chart-bar" style="height: 90%; animation-delay: 0.7s;"></div>
+                    </div>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="action-buttons">
+                    <button class="btn-primary">
+                        💰 Donate Now
+                    </button>
+                    <button class="btn-secondary">
+                        🔗 Explorer
+                    </button>
+                </div>
+            </div>
+
+            <!-- Transaction Feed -->
+            <div class="transaction-feed">
+                <div class="feed-header">
+                    <div>
+                        <div class="feed-label">
+                            <span class="live-indicator" style="display: inline-block; margin-right: 4px;"></span>
+                            Live Feed
+                        </div>
+                        <div class="feed-title">Recent Transfers</div>
+                    </div>
+                    <button class="view-all-btn">
+                        👁️ View all
+                    </button>
+                </div>
+
+                <!-- Transaction items -->
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon donation">📈</div>
+                        <div class="transaction-details">
+                            <div class="transaction-type">Donation</div>
+                            <div class="transaction-address">0x742d...c5b9</div>
+                            <div class="transaction-time">1 hour ago</div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount">
+                        <div class="amount-value positive">+5.20 ETH</div>
+                        <div class="amount-usd">$13,000</div>
+                    </div>
+                </div>
+
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon donation">📈</div>
+                        <div class="transaction-details">
+                            <div class="transaction-type">Donation</div>
+                            <div class="transaction-address">0x8ba1...c40</div>
+                            <div class="transaction-time">2 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount">
+                        <div class="amount-value positive">+2.25 ETH</div>
+                        <div class="amount-usd">$5,625</div>
+                    </div>
+                </div>
+
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon withdrawal">💸</div>
+                        <div class="transaction-details">
+                            <div class="transaction-type">Disbursement</div>
+                            <div class="transaction-address">0x123d...2987</div>
+                            <div class="transaction-time">3 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount">
+                        <div class="amount-value negative">-1.40 ETH</div>
+                        <div class="amount-usd">$3,500</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info banner -->
+            <div class="info-banner">
+                <div class="flutter-logo">🦋</div>
+                <h3>Flutter Enhanced Design</h3>
+                <p>
+                    This preview shows all 3 template styles combined:<br>
+                    <strong>ProfitPilot</strong> golden effects •
+                    <strong>DeFi Protocol</strong> gradients •
+                    <strong>FluxChain</strong> glassmorphism
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log('%c🦋 Flutter Enhanced Preview', 'color: #02569B; font-size: 20px; font-weight: bold;');
+        console.log('%cAll 3 template designs combined!', 'color: #7c3aed; font-size: 14px;');
+
+        // Add click interactions
+        document.querySelectorAll('.btn-primary, .btn-secondary, .view-all-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Animate transaction items on load
+        document.querySelectorAll('.transaction-item').forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                item.style.transition = 'all 0.5s ease-out';
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 1000 + (index * 150));
+        });
+    </script>
+</body>
+
+</html>

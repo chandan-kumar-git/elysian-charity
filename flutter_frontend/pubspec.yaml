@@ -1,0 +1,58 @@
+name: elysian_charity_flutter
+description: Flutter frontend for Elysian Charity Transparency System
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # UI & Animations
+  cupertino_icons: ^1.0.6
+  flutter_animate: ^4.2.0
+  shimmer: ^3.0.0
+  
+  # Web3 & Blockchain
+  web3dart: ^2.7.3
+  http: ^1.1.0
+  url_launcher: ^6.2.1
+  
+  # State Management
+  provider: ^6.1.1
+  
+  # Storage & Data
+  shared_preferences: ^2.2.2
+  
+  # Utilities
+  intl: ^0.18.1
+  crypto: ^3.0.3
+  
+  # UI Components
+  fl_chart: ^0.64.0
+  qr_flutter: ^4.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
+    - assets/icons/
+  
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700

@@ -1,0 +1,70 @@
+name: elysian_flutter
+description: Elysian Chain - Premium Flutter Web3 Dashboard with ProfitPilot, DeFi Protocol & FluxChain designs
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # State Management
+  provider: ^6.1.1
+  
+  # Web3 & Blockchain
+  web3dart: ^2.7.3
+  http: ^1.2.0
+  
+  # UI & Animations
+  flutter_animate: ^4.5.0
+  fl_chart: ^0.66.0
+  rive: ^0.13.0
+  animated_text_kit: ^4.2.2
+  lottie: ^3.1.0
+  shimmer: ^3.0.0
+  cached_network_image: ^3.3.0
+  glassmorphism_ui: ^0.3.0
+  animations: ^2.0.11
+  
+  # Game Engine & Character Animation
+  flame: ^1.14.0
+  flame_rive: ^1.6.0
+  
+  # Performance & UI
+  flutter_staggered_animations: ^1.1.1
+  animated_flip_counter: ^0.2.6
+  
+  # Interaction
+  vibration: ^2.0.0
+  audioplayers: ^6.1.0
+  
+  # Authentication
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  google_sign_in: ^6.3.0
+  cloud_firestore: ^5.4.4
+  
+  # Utilities
+  intl: ^0.19.0
+  url_launcher: ^6.2.4
+  shared_preferences: ^2.2.2
+  google_fonts: ^6.1.0
+  
+  # 3D Models
+  flutter_cube: ^0.1.1
+  vector_math: ^2.1.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/sounds/
+    - assets/animations/
+    - assets/models/

@@ -1,0 +1,92 @@
+{
+  "name": "autonomous-blockchain-project",
+  "version": "1.0.0",
+  "description": "Charity Donation Transparency System with autonomous debugging",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --inspect=0.0.0.0:9229 index.js",
+    "start": "node index.js",
+    "test": "npx hardhat test",
+    "test:ci": "npx hardhat test",
+    "lint": "eslint . --fix",
+    "lint:watch": "nodemon --exec 'npm run lint' --watch '**/*.js'",
+    "auto-debug": "concurrently \"npm run dev\" \"npm run test\" \"npm run lint:watch\"",
+    "testsprite:debug": "npx @testsprite/testsprite-mcp@latest debug",
+    "build": "webpack --mode production",
+    "deploy": "npm run build && npm run test:ci"
+  },
+  "keywords": [
+    "blockchain",
+    "charity",
+    "transparency",
+    "autonomous",
+    "testsprite"
+  ],
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.1.0",
+    "@nomicfoundation/hardhat-ethers": "^3.1.2",
+    "@nomicfoundation/hardhat-network-helpers": "^3.0.1",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@types/chai": "^5.2.3",
+    "@types/mocha": "^10.0.10",
+    "chai": "^6.2.0",
+    "concurrently": "^8.0.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.0.0",
+    "mocha": "^11.7.4",
+    "nodemon": "^3.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^5.0.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.4.0",
+    "dotenv": "^16.6.1",
+    "ethers": "^6.15.0",
+    "express": "^4.18.0",
+    "hardhat": "^3.0.10",
+    "web3": "^4.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!node_modules/**",
+      "!coverage/**"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.js",
+      "**/?(*.)+(spec|test).js"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es2021": true,
+      "jest": true
+    },
+    "extends": [
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-console": "warn",
+      "no-unused-vars": "error",
+      "prefer-const": "error"
+    }
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "node_modules",
+      "coverage",
+      "dist"
+    ],
+    "ext": "js,json",
+    "exec": "node --inspect=0.0.0.0:9229"
+  },
+  "type": "module"
+}
