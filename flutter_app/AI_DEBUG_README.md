@@ -267,7 +267,7 @@ The debug system simulates integration with multiple AI models:
    - Context-aware suggestions
    - Security vulnerability detection
 
-2. **Claude Code Review**
+2. **Static Code Reviewer**
    - Code quality assessment
    - Best practice recommendations
    - Refactoring suggestions

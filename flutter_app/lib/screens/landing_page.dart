@@ -5,7 +5,6 @@ import 'dart:math' as math;
 import '../widgets/landing/hero_section.dart';
 import '../widgets/landing/features_section.dart';
 import '../widgets/landing/stats_section.dart';
-import '../widgets/landing/tokenomics_section.dart';
 import '../widgets/landing/roadmap_section.dart';
 import '../widgets/landing/footer_section.dart';
 import '../widgets/landing/navbar.dart';

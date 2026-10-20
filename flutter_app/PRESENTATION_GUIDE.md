@@ -268,7 +268,7 @@ and can fix them automatically!"
 ### **If judges want deep dive:**
 - Show generated test code
 - Demonstrate live feed updates
-- Explain AI model ensemble (GPT-4 + Claude + CodeLlama + Gemini)
+- Explain AI model ensemble (GPT-4 + CodeLlama + Gemini)
 - Walk through optimization suggestions
 
 ### **If asked for code review:**

@@ -60,3 +60,12 @@ private-keys/
 wallets/
 *.pem
 *.key
+node_modules/
+.next/
+frontend/.next/
+flutter_app/build/
+# *token* above is for secret files; keep source code that merely has 'token' in its name
+!*.dart
+!*.sol
+!*.ts
+!*.tsx

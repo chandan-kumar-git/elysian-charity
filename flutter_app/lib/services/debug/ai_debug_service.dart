@@ -17,7 +17,7 @@ class AIDebugService {
   // Simulated TestSprite AI capabilities
   final List<String> _aiModels = [
     'GPT-4 Code Analyzer',
-    'Claude Code Review',
+    'Static Code Reviewer',
     'CodeLlama Debugger',
     'Gemini Test Generator'
   ];
@@ -179,7 +179,7 @@ class AIDebugService {
       'technicalDebt': '${_random.nextInt(8) + 3}h', // 3-11 hours
       'filesAnalyzed': 47,
       'linesOfCode': 8542,
-      'aiModel': 'GPT-4 + Claude Ensemble',
+      'aiModel': 'GPT-4 + Gemini Ensemble',
       'lastAnalysis': DateTime.now().subtract(Duration(minutes: _random.nextInt(30))),
     };
   }
