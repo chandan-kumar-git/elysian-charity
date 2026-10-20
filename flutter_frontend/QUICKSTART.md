@@ -148,7 +148,7 @@ Update `wallet_service.dart` and `contract_service.dart`:
 
 ## Getting Help
 
-- 📚 Documentation: README.md, SETUP.md, BUILD_SUMMARY.md
+- 📚 Documentation: README.md, SETUP.md
 - 🌐 Flutter Docs: https://docs.flutter.dev/
 - 💬 Discord: https://discord.gg/flutter
 - 📺 YouTube: Flutter's official channel
@@ -163,7 +163,6 @@ Update `wallet_service.dart` and `contract_service.dart`:
 **Quick Links:**
 - [Full README](README.md) - Complete documentation
 - [Setup Guide](SETUP.md) - Installation instructions
-- [Build Summary](BUILD_SUMMARY.md) - What was built
 
 **Run Now:**
 ```bash

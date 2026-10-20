@@ -69,3 +69,9 @@ flutter_app/build/
 !*.sol
 !*.ts
 !*.tsx
+
+artifacts/
+cache/
+.dart_tool/
+.vscode/
+*.tsbuildinfo

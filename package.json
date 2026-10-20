@@ -11,7 +11,6 @@
     "lint": "eslint . --fix",
     "lint:watch": "nodemon --exec 'npm run lint' --watch '**/*.js'",
     "auto-debug": "concurrently \"npm run dev\" \"npm run test\" \"npm run lint:watch\"",
-    "testsprite:debug": "npx @testsprite/testsprite-mcp@latest debug",
     "build": "webpack --mode production",
     "deploy": "npm run build && npm run test:ci"
   },
@@ -19,8 +18,7 @@
     "blockchain",
     "charity",
     "transparency",
-    "autonomous",
-    "testsprite"
+    "autonomous"
   ],
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.1.0",
