@@ -1,269 +1,89 @@
-# 🏆 Elysian: Charity Donation Transparency System
+<div align="center">
 
-## 🚀 **Complete Web3 dApp - Ready for Hackathon Submission**
+# Elysian: Charity Donation Transparency
 
-### 📊 **Project Overview**
-A blockchain-based platform for transparent charity donations built with cutting-edge Web3 technology. Features smart contracts, real-time transaction tracking, NGO verification, and admin controls.
+**A blockchain charity platform where every donation, NGO verification and withdrawal is a public, verifiable transaction.**
 
----
+Team Reverse Engineering · Smart contract + Next.js web app + Flutter mobile app
 
-## ✅ **Current Status: FULLY FUNCTIONAL**
+<img src="docs/screenshots/web-home.webp" alt="Elysian web app: contract health card with total value locked, performance trend and a connected wallet" width="100%">
 
-### 🎯 **What's Working:**
-- ✅ **Smart Contract**: Compiled and ready for deployment (8-second build time!)
-- ✅ **Frontend**: Next.js app running at http://localhost:3000
-- ✅ **Wallet Integration**: MetaMask connection ready
-- ✅ **Admin Panel**: NGO management and fund controls
-- ✅ **Transaction Tracking**: Real-time blockchain monitoring
-- ✅ **Responsive UI**: Modern TailwindCSS design
+</div>
 
----
+## The problem
 
-## 🛠️ **Technology Stack**
+Donors rarely see where their money goes after it leaves their account. Elysian puts the whole flow on Ethereum: donations go into a smart contract, only NGOs verified by the owner can withdraw, and every movement is an on-chain event anyone can audit.
 
-### **Smart Contracts:**
-- **Solidity 0.8.20** with OpenZeppelin v5
-- **Hardhat** development environment
-- **Security**: ReentrancyGuard, Ownable access control
-- **Gas Optimization**: 1-run optimizer for fast development
+## Screens
 
-### **Frontend:**
-- **Next.js 14** with TypeScript
-- **ethers.js v6** for Web3 integration
-- **TailwindCSS** for styling
-- **react-hot-toast** for notifications
-- **lucide-react** for icons
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/web-transfers.webp" alt="Recent transfers"></td>
+    <td width="50%" align="center"><img src="docs/screenshots/web-mobile.webp" alt="Web app on a phone" width="260"></td>
+  </tr>
+  <tr>
+    <td><b>Live feed.</b> Recent donations and disbursements with amounts and addresses, plus Donate and Etherscan links.</td>
+    <td><b>Mobile web.</b> The same dashboard at phone width.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/flutter-preview.webp" alt="Flutter app preview"></td>
+    <td><img src="docs/screenshots/flutter-preview-2.webp" alt="Flutter app preview, transfers"></td>
+  </tr>
+  <tr>
+    <td colspan="2"><b>Flutter app design preview</b> (<code>FLUTTER_DEMO.html</code>): the mobile app's contract health and recent transfers screens.</td>
+  </tr>
+</table>
 
-### **Key Features:**
-- 🔐 **Secure Donations**: Reentrancy protection
-- 👥 **NGO Verification**: Owner-controlled verification system
-- 💰 **Fund Management**: Transparent withdrawal system
-- 📊 **Real-time Tracking**: Live transaction monitoring
-- 🚨 **Emergency Controls**: Pause/unpause functionality
-- 📱 **Responsive Design**: Mobile-first approach
+## Smart contract
 
----
+`contracts/ElysianCharity.sol` (Solidity 0.8.20, OpenZeppelin v5 `Ownable` and `ReentrancyGuard`):
 
-## 🚀 **Quick Start Guide**
+| Function | Who | What it does |
+|---|---|---|
+| `donate()` | anyone | Send ETH to the pool; emits `DonationReceived` |
+| `registerNGO()` / `removeNGO()` | owner | Verify or remove an NGO address; emits `NGOVerified` / `NGORemoved` |
+| `withdrawFunds()` | owner | Release funds to a verified NGO; emits `FundsWithdrawn` |
+| `emergencyWithdraw()` | owner | Pull all funds in an emergency |
+| `getDonationStats()`, `getVerifiedNGOs()`, `getDonorContribution()`, `getNGOWithdrawals()` | anyone | Read-only views for the dashboards |
 
-### **1. Prerequisites**
+## Web app
+
+Next.js 14, TypeScript, Tailwind CSS, ethers.js v6.
+
+- **Wallet**: MetaMask connection, with an install guide when MetaMask is missing.
+- **Donate**: amount input with quick amounts (0.1, 0.5, 1.0 ETH), validation and notifications.
+- **Admin panel**: owner-only NGO registration, fund withdrawal and emergency controls.
+- **Transaction ledger**: on-chain events with filtering, CSV export and Etherscan links.
+
+## Mobile app
+
+`flutter_app/` is a Flutter app (web3dart, flutter_animate) for the same contract. Note: it currently does not compile, because `lib/screens/tokenomics_page.dart` and `lib/widgets/landing/tokenomics_section.dart` are imported but not in the repository.
+
+## Run locally
+
 ```bash
-# Install Node.js 18+ and npm
-node --version  # Should be 18+
-npm --version
-```
-
-### **2. Setup Project**
-```bash
-# Clone and setup
-cd blockchain
+# contracts
 npm install
-
-# Setup frontend
-cd frontend
-npm install
-```
-
-### **3. Smart Contract Development**
-```bash
-# Compile contracts (8 seconds!)
 npx hardhat compile
-
-# Run tests
 npx hardhat test
+npx hardhat node                    # local chain on localhost:8545
+node scripts/simple-deploy.cjs      # new terminal: deploy the contract
 
-# Start local network
-npx hardhat node
-```
-
-### **4. Deploy Smart Contract**
-```bash
-# Deploy to local network
-node scripts/simple-deploy.cjs
-
-# Copy the contract address to frontend/.env.local
-```
-
-### **5. Start Frontend**
-```bash
+# web app
 cd frontend
-npm run dev
-# Open http://localhost:3000
+npm install
+# frontend/.env.local:
+#   NEXT_PUBLIC_CONTRACT_ADDRESS=<address printed by the deploy script>
+#   NEXT_PUBLIC_OWNER_ADDRESS, NEXT_PUBLIC_NETWORK_NAME, NEXT_PUBLIC_BLOCK_EXPLORER
+npm run dev                         # http://localhost:3000
 ```
 
----
+## Project structure
 
-## 📱 **User Interface Features**
-
-### **Main Dashboard:**
-- Clean, modern design with gradient backgrounds
-- Wallet connection status
-- Quick donation interface
-- Transaction history viewer
-
-### **Donation System:**
-- Input validation and error handling
-- Quick amount buttons (0.1, 0.5, 1.0 ETH)
-- Gas estimation and optimization
-- Success/failure notifications
-
-### **Admin Panel:**
-- Owner-only access control
-- NGO registration and management
-- Fund withdrawal interface
-- Emergency pause controls
-- Real-time statistics dashboard
-
-### **Transaction Ledger:**
-- Real-time blockchain data
-- Event filtering and searching
-- CSV export functionality
-- Etherscan integration
-
----
-
-## 🔐 **Security Features**
-
-### **Smart Contract Security:**
-- ✅ **ReentrancyGuard**: Prevents reentrancy attacks
-- ✅ **Ownable**: Access control for admin functions
-- ✅ **Input Validation**: Zero amount and address checks
-- ✅ **Emergency Pause**: Circuit breaker pattern
-- ✅ **Event Logging**: Comprehensive audit trail
-
-### **Frontend Security:**
-- ✅ **Type Safety**: Full TypeScript implementation
-- ✅ **Input Sanitization**: Form validation
-- ✅ **Error Handling**: Graceful failure management
-- ✅ **Network Validation**: Chain ID verification
-
----
-
-## 🌐 **Deployment Options**
-
-### **Local Development:**
-- Hardhat local network (Chain ID: 31337)
-- Instant deployment and testing
-
-### **Testnet Deployment:**
-- **Sepolia**: `CHAIN_ID=11155111`
-- **Goerli**: `CHAIN_ID=5`
-- Configuration in `frontend/.env.local`
-
-### **Production Deployment:**
-- Frontend: Vercel/Netlify
-- Smart Contract: Ethereum Mainnet
-- IPFS for decentralized hosting
-
----
-
-## 📊 **Testing & Quality Assurance**
-
-### **Smart Contract Tests:**
-- 25+ comprehensive test cases
-- Deployment verification
-- Donation flow testing
-- Admin function validation
-- Security edge cases
-- Gas optimization checks
-
-### **Frontend Testing:**
-- Component rendering tests
-- Wallet integration tests
-- Error boundary testing
-- Responsive design validation
-
----
-
-## 🏆 **Hackathon Highlights**
-
-### **Innovation Points:**
-1. **Sub-10 Second Compilation**: Optimized Hardhat configuration
-2. **Modern Web3 Stack**: Latest ethers.js v6 + Next.js 14
-3. **Security First**: OpenZeppelin v5 + comprehensive testing
-4. **Real-time Transparency**: Live blockchain data integration
-5. **Professional UI/UX**: Production-ready design system
-
-### **Technical Excellence:**
-- ⚡ **Fast Development**: 8-second contract compilation
-- 🔒 **Security Focused**: Multiple protection layers
-- 📱 **Mobile Ready**: Responsive design
-- 🔧 **Developer Experience**: TypeScript + modern tooling
-- 🚀 **Deployment Ready**: One-command deployment
-
----
-
-## 🛡️ **Solved Challenges**
-
-### **Development Issues Fixed:**
-1. ✅ **OpenZeppelin v5 Migration**: Updated imports and constructor
-2. ✅ **ES Module Compatibility**: Fixed Hardhat configuration
-3. ✅ **TypeScript Errors**: Resolved all type issues
-4. ✅ **BigInt Support**: Updated to ES2020 target
-5. ✅ **Import Path Issues**: Fixed all dependency imports
-6. ✅ **CSS Integration**: Resolved TailwindCSS configuration
-
-### **Deployment Solutions:**
-1. ✅ **Compilation Speed**: 98% improvement (10min → 8sec)
-2. ✅ **Network Configuration**: Multiple network support
-3. ✅ **Frontend Integration**: Seamless Web3 connection
-4. ✅ **Error Handling**: Comprehensive user feedback
-
----
-
-## 🎯 **Next Steps for Production**
-
-### **Immediate:**
-1. Deploy to Sepolia testnet
-2. Add comprehensive test suite
-3. Implement advanced admin features
-4. Add multi-language support
-
-### **Future Enhancements:**
-1. **IPFS Integration**: Decentralized file storage
-2. **Multi-chain Support**: Polygon, BSC, Arbitrum
-3. **Advanced Analytics**: Donation insights dashboard
-4. **Mobile App**: React Native implementation
-5. **DAO Governance**: Community-driven decisions
-
----
-
-## 📞 **Support & Documentation**
-
-### **Key Files:**
-- `contracts/ElysianCharity.sol` - Main smart contract
-- `frontend/src/app/page.tsx` - Main application
-- `scripts/simple-deploy.cjs` - Deployment script
-- `test/ElysianCharity.test.js` - Comprehensive tests
-
-### **Environment Variables:**
-```env
-NEXT_PUBLIC_CONTRACT_ADDRESS=0x...
-NEXT_PUBLIC_OWNER_ADDRESS=0x...
-NEXT_PUBLIC_NETWORK_NAME=localhost
-NEXT_PUBLIC_CHAIN_ID=31337
 ```
-
----
-
-## 🏅 **Demo Instructions**
-
-### **For Judges:**
-1. **Visit**: http://localhost:3000
-2. **Connect**: MetaMask wallet
-3. **Test**: Make a donation
-4. **Explore**: Admin panel features
-5. **Verify**: Transaction transparency
-
-### **Live Features to Demonstrate:**
-- Wallet connection flow
-- Donation with real transaction
-- Admin NGO management
-- Real-time transaction tracking
-- Responsive design across devices
-
----
-
-**🎉 Project Status: READY FOR SUBMISSION!**
-
-*Built with ❤️ for transparent charity donations on the blockchain*
+contracts/       ElysianCharity.sol
+scripts/         deploy scripts
+test/            Hardhat tests
+frontend/        Next.js web app (components: ElysianDashboard, DonationForm, AdminPanel, TransactionLedger, ...)
+flutter_app/     Flutter mobile app
+```
