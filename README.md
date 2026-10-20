@@ -1,10 +1,10 @@
 <div align="center">
 
-# Elysian: Charity Donation Transparency
+<img src="docs/brand/wordmark.webp" alt="Elysian: Charity Donation Transparency" width="100%">
 
 **A blockchain charity platform where every donation, NGO verification and withdrawal is a public, verifiable transaction.**
 
-Team Reverse Engineering · Smart contract + Next.js web app + Flutter mobile app
+[Live app](https://elysian-charity.vercel.app) · Team Reverse Engineering · Smart contract, Flutter app and Next.js web dashboard
 
 <img src="docs/screenshots/web-home.webp" alt="Elysian web app: contract health card with total value locked, performance trend and a connected wallet" width="100%">
 
@@ -16,21 +16,29 @@ Donors rarely see where their money goes after it leaves their account. Elysian 
 
 ## Screens
 
+The Flutter app, running on the web:
+
 <table>
   <tr>
+    <td width="34%" align="center"><img src="docs/screenshots/app-landing.webp" alt="Flutter app landing" width="260"></td>
+    <td width="33%" align="center"><img src="docs/screenshots/app-mobile.webp" alt="Flutter app home" width="260"></td>
+    <td width="33%" align="center"><img src="docs/screenshots/web-mobile.webp" alt="Web dashboard on a phone" width="260"></td>
+  </tr>
+  <tr>
+    <td><b>Landing.</b> "Where technology meets hope", with Donate and demo entry points.</td>
+    <td><b>App home.</b> Balance, today's donations and the app launcher: wallet, social, market, maps and more.</td>
+    <td><b>Web dashboard.</b> Contract health and total value locked from the Next.js app.</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/app-fund-flow.webp" alt="Fund flow page"></td>
     <td width="50%"><img src="docs/screenshots/web-transfers.webp" alt="Recent transfers"></td>
-    <td width="50%" align="center"><img src="docs/screenshots/web-mobile.webp" alt="Web app on a phone" width="260"></td>
   </tr>
   <tr>
+    <td><b>Fund flow.</b> How money moves through the contract: donate, verify, disburse, audit.</td>
     <td><b>Live feed.</b> Recent donations and disbursements with amounts and addresses, plus Donate and Etherscan links.</td>
-    <td><b>Mobile web.</b> The same dashboard at phone width.</td>
-  </tr>
-  <tr>
-    <td><img src="docs/screenshots/flutter-preview.webp" alt="Flutter app preview"></td>
-    <td><img src="docs/screenshots/flutter-preview-2.webp" alt="Flutter app preview, transfers"></td>
-  </tr>
-  <tr>
-    <td colspan="2"><b>Flutter app design preview</b> (<code>FLUTTER_DEMO.html</code>): the mobile app's contract health and recent transfers screens.</td>
   </tr>
 </table>
 
@@ -57,7 +65,13 @@ Next.js 14, TypeScript, Tailwind CSS, ethers.js v6.
 
 ## Mobile app
 
-`flutter_app/` is a Flutter app (web3dart, flutter_animate) for the same contract. Note: it currently does not compile, because `lib/screens/tokenomics_page.dart` and `lib/widgets/landing/tokenomics_section.dart` are imported but not in the repository.
+`flutter_app/` is the Flutter app (web3dart, flutter_animate) for the same contract. Only the web platform is set up in this repo; the live link above is that web build. Run `flutter create .` inside `flutter_app/` to add Android or iOS.
+
+```bash
+cd flutter_app
+flutter pub get
+flutter run -d chrome            # or: flutter build web --release
+```
 
 ## Run locally
 
